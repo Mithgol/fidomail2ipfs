@@ -9,5 +9,8 @@
 "repository": {
    "type": "git",
    "url": "https://github.com/Mithgol/fidomail2ipfs.git"
+},
+"scripts": {
+   "test": "jshint --verbose fidomail2ipfs.js"
 }
 }
