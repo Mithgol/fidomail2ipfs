@@ -18,6 +18,8 @@ You may visit https://github.com/Mithgol/fidomail2ipfs#readme occasionally to r
 
 ## Testing fidomail2ipfs
 
+[![(build testing status)](https://img.shields.io/travis/Mithgol/fidomail2ipfs/master.svg?style=plastic)](https://travis-ci.org/Mithgol/fidomail2ipfs)
+
 It is necessary to install [JSHint](http://jshint.com/) for testing.
 
 * You may install JSHint globally (`npm install jshint -g`) or locally (`npm install jshint` in the directory of fidomail2ipfs).
