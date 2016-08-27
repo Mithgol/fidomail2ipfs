@@ -6,6 +6,18 @@ This module is written in JavaScript and requires [Node.js](http://nodejs.org
 
 This module is currently in an early phase of its development and thus does not have the desired level of feature completeness.
 
+## Purposes
+
+Web-related applications that deal with Fidonet are likely to require URLs of Fidonet-related content. Examples:
+
+* [`fido2rss`](https://github.com/Mithgol/fido2rss) puts URLs in headers of RSS entries
+
+* [`fido2twi`](https://github.com/Mithgol/node-fido2twi) posts URLs in microblog entries in Twitter
+
+However, [FGHI URL](https://github.com/Mithgol/FGHI-URL/) standard is not universally recognizable and thus directly using a FGHI URL is not likely to provide immediate access to the designated Fidonet content.
+
+A compromise here is an URL that leads to a copy of Fidonet content — a copy wrapped in HTML5 and stored in [IPFS](https://ipfs.io/). The immutability of IPFS file entries is not a problem here (because a Fidonet echomail message is also typically not altered after it is broadcasted to the subscribers of an echomail area).
+
 ## Installing fidomail2ipfs
 
 [![(npm package version)](https://nodei.co/npm/fidomail2ipfs.png?downloads=true&downloadRank=true)](https://npmjs.org/package/fidomail2ipfs)
