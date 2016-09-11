@@ -28,6 +28,12 @@ A compromise here is an URL that leads to a copy of Fidonet content —
 
 You may visit https://github.com/Mithgol/fidomail2ipfs#readme occasionally to read the latest `README` because the package's version is not planned to grow after changes when they happen in `README` only. (And `npm publish --force` is [forbidden](http://blog.npmjs.org/post/77758351673/no-more-npm-publish-f) nowadays.)
 
+## Using fidomail2ipfs
+
+When you require the installed module, you get a function that renders an echomail message (generating its HTML5 representation) and saves that messages in IPFS asynchronously.
+
+That function has two parameters. The first parameter must be an object of settings (see below). The second parameter is a callback function with a signature `(err, URL)` that gets the URL of an IPFS-stored HTML5 page. The URL is relative to the gateway https://ipfs.io/
+
 ## Testing fidomail2ipfs
 
 [![(build testing status)](https://img.shields.io/travis/Mithgol/fidomail2ipfs/master.svg?style=plastic)](https://travis-ci.org/Mithgol/fidomail2ipfs)
