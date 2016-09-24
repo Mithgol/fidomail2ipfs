@@ -18,6 +18,16 @@ However, [FGHI URL](https://github.com/Mithgol/FGHI-URL/) standard is not univ
 
 A compromise here is an URL that leads to a copy of Fidonet content — a copy wrapped in HTML5 and stored in [IPFS](https://ipfs.io/). The immutability of IPFS file entries is not a problem here (because a Fidonet echomail message is also typically not altered after it is broadcasted to the subscribers of an echomail area).
 
+## Main dependencies
+
+This module (`fidomail2ipfs`) mainly depends on the following Node.js modules to perform the necessary steps of its process:
+
+* The [Fidonet HTML](https://github.com/Mithgol/node-fidonet-fidohtml) module is used to convert the Fidonet message's text to its HTML representation.
+
+* The [EFGH](https://github.com/Mithgol/efgh/) module is used to convert the Fidonet message's metadata to an HTML representation of its header.
+
+* The [JavaScript IPFS API](https://github.com/ipfs/js-ipfs/) client library is used to save (in IPFS) the (previously generated) HTML.
+
 ## Installing fidomail2ipfs
 
 [![(npm package version)](https://nodei.co/npm/fidomail2ipfs.png?downloads=true&downloadRank=true)](https://npmjs.org/package/fidomail2ipfs)
