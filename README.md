@@ -50,7 +50,7 @@ The following settings are expected as the properties of the aforementioned o
 
 * `port` — the port of the IPFS server that is used to publish the message. This property is optional; if it is missing, `5001` is used by default.
 
-* `messageText` — the Fidonet message's text.
+* `messageText` — the Fidonet message's text. That text is expected to be given in a JavaScript string (a Unicode string, not a binary) and with LF line endings (`'\n'`, i.e. hexadecimal `0A`).
 
 ## Testing fidomail2ipfs
 
