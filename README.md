@@ -52,6 +52,8 @@ The following settings are expected as the properties of the aforementioned o
 
 * `messageText` — the Fidonet message's text. That text is expected to be given in a JavaScript string (a Unicode string, not a binary) and with LF line endings (`'\n'`, i.e. hexadecimal `0A`).
 
+Additionally the message's header's settings are expected. The README of [EFGH](https://github.com/Mithgol/efgh/) describes their meaning and their names (`avatarWidth`, `avatarURL`, `from`, `to`, `origAddr`, `origTime`, `procTime`, `subj`, `URL`). However, the EFGH's `messageHTML` is not expected because it is generated from the aforementioned `messageText`.
+
 ## Testing fidomail2ipfs
 
 [![(build testing status)](https://img.shields.io/travis/Mithgol/fidomail2ipfs/master.svg?style=plastic)](https://travis-ci.org/Mithgol/fidomail2ipfs)
