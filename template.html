@@ -18,6 +18,11 @@ crossorigin="anonymous"></script>
 <script src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.2"
 integrity="sha384-BpKaI+5h34TnogEAuwjSftbz62SBhCYXTpv+rU9/4kwD+25iD5Zq0Jq3b0aFFovY"
 crossorigin="anonymous"></script>
+<script>
+$(function(){
+   if( twemoji ) twemoji.parse( $('body')[0] );
+});
+</script>
 </head>
 <body>
 {{body}}
