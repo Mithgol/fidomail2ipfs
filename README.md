@@ -4,8 +4,6 @@ This module (`fidomail2ipfs`) renders echomail messages from Fidonet (generati
 
 This module is written in JavaScript and requires [Node.js](http://nodejs.org/) to run. It uses some ECMAScript 2015 features, and thus a relatively recent Node.js is required. This module is tested against the latest stable version of Node.js.
 
-This module is currently in an early phase of its development and thus does not have the desired level of feature completeness.
-
 ## Purposes
 
 Web-related applications that deal with Fidonet are likely to require URLs of Fidonet-related content. Examples:
@@ -48,9 +46,9 @@ The following settings are expected as the properties of the aforementioned o
 
 * `server` — the address of the IPFS server that is used to publish the message. This property is optional; if it is missing, `'localhost'` is used by default.
 
-* `port` — the port of the IPFS server that is used to publish the message. This property is optional; if it is missing, `5001` is used by default.
+* `port` — the port of the IPFS server that is used to publish the message. This property is optional; if it is missing, `'5001'` is used by default.
 
-* `messageText` — the Fidonet message's text. That text is expected to be given in a JavaScript string (a Unicode string, not a binary) and with LF line endings (`'\n'`, i.e. hexadecimal `0A`).
+* `messageText` — the Fidonet message's text. That text is expected to be given in a JavaScript string (a Unicode string, not a binary) and with LF line endings (`'\n'`, i.e. hexadecimal `0A`). This property is optional; if it is missing, `''` is used by default. (However, that default value is not very useful.)
 
 Additionally the message's header's settings are expected. The README of [EFGH](https://github.com/Mithgol/efgh/) describes their meaning and their names (`avatarWidth`, `avatarURL`, `from`, `to`, `origAddr`, `origTime`, `procTime`, `subj`, `URL`). However, the EFGH's `messageHTML` is not expected because it is generated from the aforementioned `messageText`.
 
