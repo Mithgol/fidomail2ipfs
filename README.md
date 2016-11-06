@@ -40,7 +40,7 @@ You may visit https://github.com/Mithgol/fidomail2ipfs#readme occasionally to r
 
 ## Using fidomail2ipfs
 
-When you require the installed module, you get a function that renders an echomail message (generating its HTML5 representation) and saves that messages in IPFS asynchronously.
+When you require the installed module, you get a function that renders an echomail message (generating its HTML5 representation) and saves that message in IPFS asynchronously.
 
 That function has two parameters. The first parameter must be an object of settings (see below). The second parameter is a callback function with a signature `(err, URL)` that receives the URL of an IPFS-stored HTML5 page. That URL is relative to the gateway https://ipfs.io/
 
