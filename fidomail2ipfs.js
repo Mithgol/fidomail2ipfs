@@ -32,12 +32,14 @@ var errors = {
 
 // cache:
 var templateHTML = false;
-var bootstrapIPFS = false;
-var EFGHCSSIPFS = false;
-var ourCSSIPFS = false;
+var hashCache = {
+   bootstrapIPFS: false,
+   EFGHCSSIPFS: false,
+   ourCSSIPFS: false
+};
 
-var dirToGlobalIPFS = (IPFS, dirPath, dirName, globalName, cbErr) => {
-   if( global[globalName] ) return cbErr(null); // already cached
+var dirToHashIPFS = (IPFS, dirPath, dirName, hashName, cbErr) => {
+   if( hashCache[hashName] ) return cbErr(null); // already cached
 
    IPFS.util.addFromFs(
       dirPath,
@@ -56,11 +58,11 @@ var dirToGlobalIPFS = (IPFS, dirPath, dirName, globalName, cbErr) => {
          var hashIPFS = arrDirIPFS[ arrDirIPFS.length - 1 ].hash;
          // if the hash is fine, put to cache and quit
          if( hashIPFS ){
-            global[globalName] = hashIPFS;
+            hashCache[hashName] = hashIPFS;
             return cbErr(null);
          }
          // otherwise invalidate cache
-         global[globalName] = false;
+         hashCache[hashName] = false;
          return cbErr(
             new Error(`[${dirName}] ${errors.undefinedDirHash}`)
          );
@@ -88,19 +90,19 @@ module.exports = (settings, storageDone) => {
          );
       },
       // (cached) store in IPFS the customized Bootstrap:
-      callback => dirToGlobalIPFS(
+      callback => dirToHashIPFS(
          IPFS,
          path.join(__dirname, 'bootstrap'), 'bootstrap',
          'bootstrapIPFS', callback
       ),
       // (cached) store in IPFS the EFGH CSS:
-      callback => dirToGlobalIPFS(
+      callback => dirToHashIPFS(
          IPFS,
          path.dirname( EFGH.pathCSS() ), 'styles',
          'EFGHCSSIPFS', callback
       ),
       // (cached) store in IPFS our CSS:
-      callback => dirToGlobalIPFS(
+      callback => dirToHashIPFS(
          IPFS,
          path.join(__dirname, 'styles'), 'styles',
          'ourCSSIPFS', callback
@@ -111,11 +113,13 @@ module.exports = (settings, storageDone) => {
             messageHTML: generateFidoHTML.fromText(options.messageText)
          });
          var resultingHTML = templateHTML.replace(
-            /{{bootstrap}}/g, 'https://ipfs.io/ipfs/' + bootstrapIPFS
+            /{{bootstrap}}/g,
+            'https://ipfs.io/ipfs/' + hashCache.bootstrapIPFS
          ).replace(
-            /{{EFGHCSS}}/g, 'https://ipfs.io/ipfs/' + EFGHCSSIPFS
+            /{{EFGHCSS}}/g, 'https://ipfs.io/ipfs/' + hashCache.EFGHCSSIPFS
          ).replace(
-            /{{FidoMail2IPFSCSS}}/g, 'https://ipfs.io/ipfs/' + ourCSSIPFS
+            /{{FidoMail2IPFSCSS}}/g,
+            'https://ipfs.io/ipfs/' + hashCache.ourCSSIPFS
          ).replace(
             /{{title}}/g, escapeHTML(options.subj || '')
          ).replace(
