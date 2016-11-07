@@ -10,12 +10,12 @@
 <link href="{{bootstrap}}/css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script
-src="http://code.jquery.com/jquery-3.1.1.min.js"
+src="https://code.jquery.com/jquery-3.1.1.min.js"
 integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 crossorigin="anonymous"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{bootstrap}}/js/bootstrap.min.js"></script>
-<link href="{{EFGHCSSIPFSURL}}" rel="stylesheet">
+<link href="{{EFGHCSS}}/efgh.css" rel="stylesheet">
 <script src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.2"
 integrity="sha384-BpKaI+5h34TnogEAuwjSftbz62SBhCYXTpv+rU9/4kwD+25iD5Zq0Jq3b0aFFovY"
 crossorigin="anonymous"></script>
@@ -26,6 +26,10 @@ $(function(){
 </script>
 </head>
 <body>
-{{body}}
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12">
+{{FidonetMessage}}
+</div></div></div>
 </body>
 </html>

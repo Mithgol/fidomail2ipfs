@@ -32,7 +32,7 @@ var errors = {
 // cache:
 var templateHTML = false;
 var bootstrapIPFS = false;
-var EFGHCSSIPFSURL = false;
+var EFGHCSSIPFS = false;
 
 module.exports = (settings, storageDone) => {
    var options = extend({}, defaults, settings);
@@ -84,36 +84,29 @@ module.exports = (settings, storageDone) => {
       },
       // (cached) store in IPFS the EFGH CSS:
       callback => {
-         if( EFGHCSSIPFSURL ) return callback(null); // cached
+         if( EFGHCSSIPFS ) return callback(null); // cached
 
-         fs.readFile(
-            EFGH.pathCSS(),
-            { encoding: 'utf8' },
-            (err, contentEFGHCSS) => {
+         IPFS.util.addFromFs(
+            path.dirname( EFGH.pathCSS() ),
+            { recursive: true },
+            (err, arrIPFS) => {
                if( err ) return callback(err);
-
-               IPFS.add(
-                  Buffer.from(contentEFGHCSS, 'utf8'),
-                  (err, resultIPFS) => {
-                     if( err ) return callback(err);
-                     if(!( resultIPFS )) return callback(
-                        new Error(errors.EFGHCSS)
-                     );
-                     if(!( Array.isArray(resultIPFS) )) return callback(
-                        new Error(errors.notArr)
-                     );
-                     if( resultIPFS.length !== 1 ) return callback(
-                        new Error(errors.weirdArr)
-                     );
-                     var hashIPFS = resultIPFS[0].hash;
-                     if( typeof hashIPFS === 'undefined' ) return callback(
-                        new Error(errors.undefinedHash)
-                     );
-                     // put to cache:
-                     EFGHCSSIPFSURL = 'https://ipfs.io/ipfs/' + hashIPFS;
-                     return callback(null);
-                  }
+               if(!( Array.isArray(arrIPFS) )) return callback(
+                  new Error(errors.EFGHCSS)
                );
+               var arrEFGHCSS = arrIPFS.filter(
+                  nextIPFS => (nextIPFS.path || '').endsWith('styles')
+               );
+               if( arrEFGHCSS.length < 1 ) return callback(
+                  new Error(errors.EFGHCSS)
+               );
+               EFGHCSSIPFS = arrEFGHCSS[ arrEFGHCSS.length - 1 ].hash;
+               // put to cache, but is it fine? check:
+               if(!( EFGHCSSIPFS )){
+                  EFGHCSSIPFS = false; // invalidate cache
+                  return callback( new Error(errors.EFGHCSS) );
+               }
+               return callback(null); // cached fine
             }
          );
       },
@@ -125,11 +118,11 @@ module.exports = (settings, storageDone) => {
          var resultingHTML = templateHTML.replace(
             /{{bootstrap}}/g, 'https://ipfs.io/ipfs/' + bootstrapIPFS
          ).replace(
-            /{{EFGHCSSIPFSURL}}/g, EFGHCSSIPFSURL
+            /{{EFGHCSS}}/g, 'https://ipfs.io/ipfs/' + EFGHCSSIPFS
          ).replace(
             /{{title}}/g, escapeHTML(options.subj || '')
          ).replace(
-            /{{body}}/g, EFGH.sync(settingsEFGH)
+            /{{FidonetMessage}}/g, EFGH.sync(settingsEFGH)
          );
 
          IPFS.add(Buffer.from(resultingHTML, 'utf8'), (err, resultIPFS) => {
