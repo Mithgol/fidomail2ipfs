@@ -1,0 +1,13 @@
+.messageText { padding-left: 1em; }
+.messageText IMG { max-width: 100%; }
+blockquote.fidoQuote, blockquote.fidoQuoteOuter { margin-bottom: 0; }
+.monospaceBlock { line-height: 1; }
+.monospaceBlock code {
+   color: inherit;
+   background-color: inherit;
+   padding: 0;
+}
+
+.originLine { color: #85144b; } /* http://clrs.cc/ maroon */
+.tearline { color: #3d9970; } /* http://clrs.cc/ olive */
+.tagline { color: #ff851b; } /* http://clrs.cc/ orange */
