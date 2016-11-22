@@ -50,6 +50,8 @@ The following settings are expected as the properties of the aforementioned o
 
 * `messageText` — the Fidonet message's text. That text is expected to be given in a JavaScript string (a Unicode string, not a binary) and with LF line endings (`'\n'`, i.e. hexadecimal `0A`). This property is optional; if it is missing, `''` is used by default. (However, that default value is not very useful.)
 
+* `twitterUser` — a username of a [Twitter](https://twitter.com/)'s user that the message should be attributed to. (By default, `false`.) If some username is given, a [Summary Card with Large Image](https://dev.twitter.com/cards/types/summary-large-image) will be generated for future references and stored in HTML5 representation's `<head>`, but only if an image for that card can be found in the Fidonet message's text. (An image is expected in the form of a Fidonet Rune similar to a Markdown's inline image. If several images are present in the message, only the first image is used in the card.)
+
 Additionally the message's header's settings are expected. The README of [EFGH](https://github.com/Mithgol/efgh/) describes their meaning and their names (`avatarWidth`, `avatarURL`, `from`, `to`, `origAddr`, `origTime`, `procTime`, `subj`, `URL`). However, the EFGH's `messageHTML` is not expected because it is generated from the aforementioned `messageText`.
 
 ## Testing fidomail2ipfs

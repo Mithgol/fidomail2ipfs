@@ -1,8 +1,10 @@
 var fs = require('fs');
 var path = require('path');
 var async = require('async');
+var cheerio = require('cheerio');
 var EFGH = require('efgh');
 var escapeHTML = require('lodash.escape');
+var unescapeHTML = require('lodash.unescape');
 var extend = require('extend');
 var IPFSAPI = require('ipfs-api');
 
@@ -17,7 +19,8 @@ var generateFidoHTML = require('fidohtml')({
 var defaults = {
    server: 'localhost',
    port: '5001',
-   messageText: ''
+   messageText: '',
+   twitterUser: false
 };
 
 var errors = {
@@ -28,6 +31,38 @@ var errors = {
    notArrDir: 'Not an Array received putting a directory to IPFS.',
    notFoundDir: 'Directory not found in an Array of content put to IPFS.',
    undefinedDirHash: 'Undefined hash after putting a directory to IPFS.'
+};
+
+var shortenEscapeHTML = (source, limit) => {
+   if( limit <= 0 ) return '';
+
+   var desiredLimit = limit;
+   while(
+      escapeHTML( source.slice(0, desiredLimit) ).length > limit
+   ) desiredLimit--;
+   return escapeHTML( source.slice(0, desiredLimit) );
+};
+
+var generateTwitterCard = (twitterUser, subj, msgHTML) => {
+   var simpleText = unescapeHTML( msgHTML.replace( /<.+?>/g, '' ) ).replace(
+      /\n+/g, ' '
+   ).replace(/\s+/g, ' ');
+   var imgSrc = cheerio('img', msgHTML).attr('src');
+   var imgAlt = cheerio('img', msgHTML).attr('alt');
+   if( typeof imgSrc === 'undefined' ) return '';
+   return [
+      '<meta name="twitter:card" content="summary_large_image" />\n',
+      '<meta name="twitter:site" content="@', escapeHTML(twitterUser),
+      '" />\n',
+      '<meta name="og:title" content="', escapeHTML(subj), '" />\n',
+      '<meta name="og:description" content="',
+      shortenEscapeHTML(simpleText, 200), '" />\n',
+      '<meta name="og:image" content="', escapeHTML(imgSrc), '" />',
+      imgAlt ? [
+         '\n', '<meta name="twitter:image:alt" content="',
+         escapeHTML(imgAlt), '" />'
+      ].join('') : ''
+   ].join('');
 };
 
 // cache:
@@ -73,6 +108,10 @@ var dirToHashIPFS = (IPFS, dirPath, dirName, hashName, cbErr) => {
 module.exports = (settings, storageDone) => {
    var options = extend({}, defaults, settings);
    var IPFS = IPFSAPI(options.server, options.port);
+   if(
+      typeof options.twitterUser === 'string' &&
+      options.twitterUser.startsWith('@')
+   ) options.twitterUser = options.twitterUser.slice(1);
 
    async.waterfall([
       // (cached) load the HTML template from the file system:
@@ -109,8 +148,9 @@ module.exports = (settings, storageDone) => {
       ),
       // generate HTML message, wrap in EFGH, store in IPFS
       callback => {
+         var FidoMessageHTML = generateFidoHTML.fromText(options.messageText);
          var settingsEFGH = extend({}, options, {
-            messageHTML: generateFidoHTML.fromText(options.messageText)
+            messageHTML: FidoMessageHTML
          });
          var resultingHTML = templateHTML.replace(
             /{{bootstrap}}/g,
@@ -122,6 +162,10 @@ module.exports = (settings, storageDone) => {
             'https://ipfs.io/ipfs/' + hashCache.ourCSSIPFS
          ).replace(
             /{{title}}/g, escapeHTML(options.subj || '')
+         ).replace(
+            /{{twitterCard}}/g, options.twitterUser ? generateTwitterCard(
+               options.twitterUser, options.subj || '', FidoMessageHTML
+            ) : ''
          ).replace(
             /{{FidonetMessage}}/g, EFGH.sync(settingsEFGH)
          );
