@@ -44,9 +44,9 @@ var shortenEscapeHTML = (source, limit) => {
 };
 
 var generateTwitterCard = (twitterUser, subj, msgHTML) => {
-   var simpleText = unescapeHTML( msgHTML.replace( /<.+?>/g, '' ) ).replace(
-      /\n+/g, ' '
-   ).replace(/\s+/g, ' ');
+   var simpleText = unescapeHTML(
+      msgHTML.replace( /<br>/g, '\n' ).replace( /<.+?>/g, '' )
+   ).replace(/\n+/g, ' ').replace(/\s+/g, ' ');
    var imgSrc = cheerio('img', msgHTML).attr('src');
    var imgAlt = cheerio('img', msgHTML).attr('alt');
    if( typeof imgSrc === 'undefined' ) return '';
