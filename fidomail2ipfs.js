@@ -46,7 +46,7 @@ var shortenEscapeHTML = (source, limit) => {
 var generateTwitterCard = (twitterUser, subj, msgHTML) => {
    var simpleText = unescapeHTML(
       msgHTML.replace( /<br>/g, '\n' ).replace( /<.+?>/g, '' )
-   ).replace(/\n+/g, ' ').replace(/ +/g, ' ');
+   ).replace(/\n+/g, ' ').replace(/ +/g, ' ').replace(/^ +/g, '');
    var imgSrc = cheerio('img', msgHTML).attr('src');
    var imgAlt = cheerio('img', msgHTML).attr('alt');
    if( typeof imgSrc === 'undefined' ) return '';
