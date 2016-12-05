@@ -7,6 +7,7 @@ var escapeHTML = require('lodash.escape');
 var unescapeHTML = require('lodash.unescape');
 var extend = require('extend');
 var IPFSAPI = require('ipfs-api');
+var truncateEscapedHTML = require('truncate-escaped-html');
 
 var generateFidoHTML = require('fidohtml')({
    URLPrefixes: {
@@ -33,16 +34,6 @@ var errors = {
    undefinedDirHash: 'Undefined hash after putting a directory to IPFS.'
 };
 
-var shortenEscapeHTML = (source, limit) => {
-   if( limit <= 0 ) return '';
-
-   var desiredLimit = limit;
-   while(
-      escapeHTML( source.slice(0, desiredLimit) ).length > limit
-   ) desiredLimit--;
-   return escapeHTML( source.slice(0, desiredLimit) );
-};
-
 var generateTwitterCard = (twitterUser, subj, msgHTML) => {
    var simpleText = unescapeHTML(
       msgHTML.replace( /<br>/g, '\n' ).replace( /<.+?>/g, '' )
@@ -56,7 +47,8 @@ var generateTwitterCard = (twitterUser, subj, msgHTML) => {
       '" />\n',
       '<meta name="og:title" content="', escapeHTML(subj), '" />\n',
       '<meta name="og:description" content="',
-      shortenEscapeHTML(simpleText, 200), '" />\n',
+      // Unicode U+27A1 is a (so called) “black” rightwards arrow:
+      truncateEscapedHTML(200, '\u27a1', simpleText), '" />\n',
       '<meta name="og:image" content="', escapeHTML(imgSrc), '" />',
       imgAlt ? [
          '\n', '<meta name="twitter:image:alt" content="',
