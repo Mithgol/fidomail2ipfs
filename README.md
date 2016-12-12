@@ -36,6 +36,12 @@ This module (`fidomail2ipfs`) mainly depends on the following Node.js modules
 
 You may visit https://github.com/Mithgol/fidomail2ipfs#readme occasionally to read the latest `README` because the package's version is not planned to grow after changes when they happen in `README` only. (And `npm publish --force` is [forbidden](http://blog.npmjs.org/post/77758351673/no-more-npm-publish-f) nowadays.)
 
+### An optional dependency
+
+After the installation you may receive an npm warning saying that `node-webcrypto-ossl` (an optional dependency of [JavaScript IPFS API](https://github.com/ipfs/js-ipfs-api)) could not be installed. It happens if you do not have [C++ build tools for Windows](https://github.com/felixrieseberg/windows-build-tools) (or their Linux or macOS counterparts) required to build that dependency on your system, or if such tools are incomplete or outdated.
+
+Ignore the warning. The dependency is optional and IPFS API is able to work without it.
+
 ## Using fidomail2ipfs
 
 When you require the installed module, you get a function that renders an echomail message (generating its HTML5 representation) and saves that message in IPFS asynchronously.
