@@ -11,3 +11,5 @@ blockquote.fidoQuote, blockquote.fidoQuoteOuter { margin-bottom: 0; }
 .originLine { color: #85144b; } /* http://clrs.cc/ maroon */
 .tearline { color: #3d9970; } /* http://clrs.cc/ olive */
 .tagline { color: #ff851b; } /* http://clrs.cc/ orange */
+
+img.emoji { height: 24px; width: 24px; }
