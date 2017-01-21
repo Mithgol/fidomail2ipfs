@@ -16,7 +16,7 @@
    "efgh": "~0.3.0",
    "extend": "~3.0.0",
    "fidohtml": "~1.3.2",
-   "ipfs-api": "~12.1.0",
+   "ipfs-api": "~12.1.3",
    "lodash.escape": "~4.0.1",
    "lodash.unescape": "~4.0.1",
    "truncate-escaped-html": "~0.1.0"
