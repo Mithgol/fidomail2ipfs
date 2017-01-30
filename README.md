@@ -63,6 +63,8 @@ The following settings are expected as the properties of the aforementioned o
 
 Additionally the message's header's settings are expected. The README of [EFGH](https://github.com/Mithgol/efgh/) describes their meaning and their names (`avatarWidth`, `avatarURL`, `from`, `to`, `origAddr`, `origTime`, `procTime`, `subj`, `URL`). However, the EFGH's `messageHTML` is not expected because it is generated from the aforementioned `messageText`.
 
+You may want to not set EFGH's `procTime` (leave it `undefined`) if you prefer the headers of the same Fidonet message to be exactly the same on different Fidonet systems (i.e. to not depend on the processing's time). It helps to prevent redundant copies of the message in the global content-addressable storage of [IPFS](https://ipfs.io/).
+
 ## Testing fidomail2ipfs
 
 [![(build testing status)](https://img.shields.io/travis/Mithgol/fidomail2ipfs/master.svg?style=plastic)](https://travis-ci.org/Mithgol/fidomail2ipfs)
