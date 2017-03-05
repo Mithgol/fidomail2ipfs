@@ -2,7 +2,7 @@
 
 This module (`fidomail2ipfs`) renders echomail messages from Fidonet (generating a HTML5 representation) and saves them in [IPFS](https://ipfs.io/) (InterPlanetary File System, aka the Permanent Web, aka the Distributed Web).
 
-This module is written in JavaScript and requires [Node.js](http://nodejs.org/) to run. It uses some ECMAScript 2015 features, and thus a relatively recent Node.js is required. This module is tested against the latest stable version of Node.js.
+This module is written in JavaScript and requires [Node.js](http://nodejs.org/) to run. It uses [`Buffer.from`](https://nodejs.org/docs/latest/api/buffer.html#buffer_class_method_buffer_from_string_encoding), and thus a relatively recent Node.js (v5.10.0 or newer) is required. This module is tested against the latest stable version of Node.js.
 
 ## Purposes
 
