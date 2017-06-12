@@ -57,7 +57,7 @@ The following settings are expected as the properties of the aforementioned o
 * `messageText` — the Fidonet message's text. That text is expected to be given in a JavaScript string (a Unicode string, not a binary) and with LF line endings (`'\n'`, i.e. hexadecimal `0A`). This property is optional; if it is missing, `''` is used by default. (However, that default value is not very useful.)
 
 * `twitterUser` — a username of a [Twitter](https://twitter.com/)'s user that the message should be attributed to. (By default, `false`.) If some username is given, a [Summary Card with Large Image](https://dev.twitter.com/cards/types/summary-large-image) will be generated for future references and stored in HTML5 representation's `<head>`, but only if an image for that card can be found in the Fidonet message's text. Notes:
-   * An image in the Fidonet message's text is expected to appear in the form of a Fidonet Rune markup (similar to a Markdown's inline image markup).
+   * An image in the Fidonet message's text is expected to appear in the form of a [Fidonet rune](https://github.com/Mithgol/node-fidonet-fidohtml/blob/master/runes.txt) (similar to a Markdown's inline image markup).
    * If several images are present in the message, only the first image is used in the card.
    * Twitter may decide to ignore the card if it feels that the image is too small (less than 300×157 pixels) or too large (more than 4096×4096 pixels or more than 5 megabytes); compose your Fidonet messages accordingly and sometimes check the related [Twitter Card docs](https://dev.twitter.com/cards/types/summary-large-image) to see if these contraints change in the future. (They were changed in 2017, for example.)
 
