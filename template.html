@@ -23,7 +23,20 @@ integrity="sha384-R4+jeNoCmfQ56WKnlmBGEXGkiXHcL610MbZ2UQQkn4KITYkihKhNssROMNzVRG
 crossorigin="anonymous"></script>
 <script>
 $(function(){
-   if( twemoji ) twemoji.parse( $('body')[0] );
+   if( twemoji ) twemoji.parse($('body')[0], {
+      callback: function(icon, options){
+         switch( icon ){
+            case 'a9':   // © copyright
+            case 'ae':   // ® registered trademark
+            case '2122': // ™ trademark
+               return false;
+            break;
+            default:
+               return options.base + options.size + '/' + icon + options.ext;
+            break;
+         }
+      }
+   });
 });
 </script>
 </head>
