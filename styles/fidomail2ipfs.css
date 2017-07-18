@@ -1,5 +1,5 @@
 .FidoMail2IPFS .messageText { padding-left: 1em; }
-.messageText IMG { max-width: 100%; }
+.messageText IMG { max-width: 95vw; }
 blockquote.fidoQuote, blockquote.fidoQuoteOuter {
    margin-bottom: 0; font-size: inherit;
 }

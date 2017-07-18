@@ -46,7 +46,7 @@ Ignore the warning. The dependency is optional and IPFS API is able to wo
 
 When you require the installed module, you get a function that renders an echomail message (generating its HTML5 representation) and saves that message in IPFS asynchronously.
 
-That function has two parameters. The first parameter must be an object of settings (see below). The second parameter is a callback function with a signature `(err, URL)` that receives the URL of an IPFS-stored HTML5 page. That URL is relative to the gateway https://ipfs.io/
+That function has two parameters. The first parameter must be an object of settings (see below). The second parameter is a callback function with a signature `(err, URL)` that receives the URL of an IPFS-stored HTML5 page. That URL starts with the gateway's address https://ipfs.io/
 
 The following settings are expected as the properties of the aforementioned object:
 
