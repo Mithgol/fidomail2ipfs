@@ -62,7 +62,8 @@ var templateHTML = false;
 var hashCache = {
    bootstrapIPFS: false,
    EFGHCSSIPFS: false,
-   ourCSSIPFS: false
+   ourCSSIPFS: false,
+   TwitterEmoji: false
 };
 
 var dirToHashIPFS = (IPFS, dirPath, dirName, hashName, cbErr) => {
@@ -138,6 +139,12 @@ module.exports = (settings, storageDone) => {
          path.join(__dirname, 'styles'), 'styles',
          'ourCSSIPFS', callback
       ),
+      // (cached) store in IPFS Twitter Emoji v2:
+      callback => dirToHashIPFS(
+         IPFS,
+         path.join(__dirname, 'node_modules', 'twemoji', '2'), 'twemoji/2',
+         'TwitterEmoji', callback
+      ),
       // generate HTML message, wrap in EFGH, store in IPFS
       callback => {
          var FidoMessageHTML = generateFidoHTML.fromText(options.messageText);
@@ -152,6 +159,9 @@ module.exports = (settings, storageDone) => {
          ).replace(
             /{{FidoMail2IPFSCSS}}/g,
             'https://ipfs.io/ipfs/' + hashCache.ourCSSIPFS
+         ).replace(
+            /{{TwitterEmoji}}/g,
+            'https://ipfs.io/ipfs/' + hashCache.TwitterEmoji
          ).replace(
             /{{title}}/g, escapeHTML(options.subj || '')
          ).replace(
