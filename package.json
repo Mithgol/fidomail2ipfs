@@ -1,7 +1,7 @@
 {
 "name": "fidomail2ipfs",
 "main": "fidomail2ipfs.js",
-"version": "0.3.19",
+"version": "0.3.20",
 "description": "Renders echomail messages from Fidonet in IPFS (the Distributed Web).",
 "keywords": ["Fidonet", "FTN", "echomail", "IPFS"],
 "author": { "name": "Mithgol the Webmaster" },
@@ -15,7 +15,7 @@
    "cheerio": "~0.22.0",
    "efgh": "~0.4.0",
    "extend": "~3.0.0",
-   "fidohtml": "~2.1.0",
+   "fidohtml": "~2.2.0",
    "ipfs-api": "~14.3.4",
    "lodash.escape": "~4.0.1",
    "lodash.unescape": "~4.0.1",
