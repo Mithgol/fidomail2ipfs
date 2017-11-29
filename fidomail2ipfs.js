@@ -143,7 +143,7 @@ module.exports = (settings, storageDone) => {
       // (cached) store in IPFS Twitter Emoji v2:
       callback => dirToHashIPFS(
          IPFS,
-         path.join(nodeModulesPath(__dirname), 'twemoji', '2'), 'twemoji/2',
+         path.join(nodeModulesPath(__dirname), 'twemoji', '2'), '2',
          'TwitterEmoji', callback
       ),
       // generate HTML message, wrap in EFGH, store in IPFS
