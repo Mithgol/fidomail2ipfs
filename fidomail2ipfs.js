@@ -31,6 +31,7 @@ var errors = {
    weirdArr: 'Weird array received putting a Fidonet HTML5 message to IPFS.',
    undefinedHash: 'Undefined hash after putting a Fidonet message to IPFS.',
    notArrDir: 'Not an Array received putting a directory to IPFS.',
+   emptyArrDir: 'Empty Array received putting a directory to IPFS.',
    notFoundDir: 'Directory not found in an Array of content put to IPFS.',
    undefinedDirHash: 'Undefined hash after putting a directory to IPFS.'
 };
@@ -78,16 +79,18 @@ var dirToHashIPFS = (IPFS, dirPath, dirName, hashName, cbErr) => {
          if(!( Array.isArray(arrIPFS) )) return cbErr(
             new Error(`[${dirName}] ${errors.notArrDir}`)
          );
-         var arrDirIPFS = arrIPFS.filter(
-            nextIPFS => (nextIPFS.path || '').endsWith(dirName)
+         if( arrIPFS.length < 1 ) return cbErr(
+            new Error(`[${dirName}] ${errors.emptyArrDir}`)
          );
-         if( arrDirIPFS.length < 1 ) return cbErr(
+         var lastDirIPFS = arrIPFS[ arrIPFS.length - 1 ];
+         if(!(
+            (lastDirIPFS.path || '').endsWith(dirName)
+         )) return cbErr(
             new Error(`[${dirName}] ${errors.notFoundDir}`)
          );
-         var hashIPFS = arrDirIPFS[ arrDirIPFS.length - 1 ].hash;
          // if the hash is fine, put to cache and quit
-         if( hashIPFS ){
-            hashCache[hashName] = hashIPFS;
+         if( lastDirIPFS.hash ){
+            hashCache[hashName] = lastDirIPFS.hash;
             return cbErr(null);
          }
          // otherwise invalidate cache
