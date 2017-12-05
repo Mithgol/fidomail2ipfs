@@ -7,7 +7,7 @@ var escapeHTML = require('lodash.escape');
 var unescapeHTML = require('lodash.unescape');
 var extend = require('extend');
 var IPFSAPI = require('ipfs-api');
-var nodeModulesPath = require('node-modules-path');
+var resolvePkg = require('resolve-pkg');
 var truncateEscapedHTML = require('truncate-escaped-html');
 
 var generateFidoHTML = require('fidohtml')({
@@ -146,7 +146,7 @@ module.exports = (settings, storageDone) => {
       // (cached) store in IPFS Twitter Emoji v2:
       callback => dirToHashIPFS(
          IPFS,
-         path.join(nodeModulesPath(__dirname), 'twemoji', '2'), '2',
+         path.join(resolvePkg('twemoji', { cwd: __dirname }), '2'), '2',
          'TwitterEmoji', callback
       ),
       // generate HTML message, wrap in EFGH, store in IPFS
