@@ -20,6 +20,7 @@
    "lodash.escape": "~4.0.1",
    "lodash.unescape": "~4.0.1",
    "node-modules-path": "~1.0.1",
+   "resolve-pkg": "~1.0.0",
    "truncate-escaped-html": "~1.0.0",
    "twemoji": "~2.5.0"
 },
