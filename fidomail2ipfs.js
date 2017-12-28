@@ -40,8 +40,9 @@ var generateTwitterCard = (twitterUser, subj, msgHTML) => {
    var simpleText = unescapeHTML(
       msgHTML.replace( /<br>/g, '\n' ).replace( /<.+?>/g, '' )
    ).replace(/\n+/g, ' ').replace(/ +/g, ' ').replace(/^\s+/g, '');
-   var imgSrc = cheerio('img', msgHTML).attr('src');
-   var imgAlt = cheerio('img', msgHTML).attr('alt');
+   var $img = cheerio('img', msgHTML);
+   var imgSrc = $img.attr('src');
+   var imgAlt = $img.attr('alt');
    if( typeof imgSrc === 'undefined' ) return '';
    return [
       '<meta name="twitter:card" content="summary_large_image" />\n',
